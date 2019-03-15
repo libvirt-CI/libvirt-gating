@@ -1,0 +1,20 @@
+- name: Remove test-provider dir
+  file:
+      path: /var/lib/avocado/data/avocado-vt/test-providers.d/downloads/io-github-autotest-libvirt
+      state: absent
+
+- name: Create downloads dir under test-provider
+  file:
+      path: /var/lib/avocado/data/avocado-vt/test-providers.d/downloads
+      state: directory
+
+- name: Create images dir under avocado-vt data
+  file:
+      path: /var/lib/avocado/data/avocado-vt/images
+      state: directory
+
+- name: Replace it with link
+  file:
+      src: "{{ tp_libvirt_path }}"
+      dest: /var/lib/avocado/data/avocado-vt/test-providers.d/downloads/io-github-autotest-libvirt
+      state: link

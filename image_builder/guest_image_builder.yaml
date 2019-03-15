@@ -1,0 +1,44 @@
+- name: Build guest image
+  hosts: '{{ hosts_custom is defined | ternary(hosts_custom, "localhost") }}'
+  vars:
+    ostype: '{{ os_type is defined | ternary(os_type, "Fedora") }}'
+    guest_name: "libvirt_gating_{{ ostype }}"
+    img_name: "{{ guest_name }}.qcow2"
+    img_path: '/tmp/{{ img_name }}'
+    real_pwd: "{{ pwd is defined | ternary(pwd, ansible_env['PWD']) }}"
+  tasks:
+    - name: Install required packages for Python 2
+      yum:
+          name: "virt-install,qemu-kvm,qemu-img,libguestfs-tools,genisoimage,libvirt"
+          state: "present"
+      when:
+          - ansible_python['version']['major'] == 2
+
+    - name: Install required packages for Python 3
+      dnf:
+          name: "virt-install,qemu-kvm,qemu-img,libguestfs-tools,genisoimage,libvirt"
+          state: "present"
+      when:
+          - ansible_python['version']['major'] == 3
+
+    - name: Restart virtlogd.socket
+      service: name=virtlogd.socket state=restarted
+      ignore_errors: yes
+
+    - name: Restart libvirtd service
+      service: name=libvirtd state=restarted
+
+    - name: Create image
+      shell: "qemu-img create {{ img_path }} -f qcow2 40G -o preallocation=off"
+
+    - name: Remove the ISO image with kickstart file
+      shell: 'rm -rf /tmp/libvirt_gating_ks.iso'
+
+    - name: Generate ISO image with kickstart file
+      shell: 'genisoimage -o /tmp/libvirt_gating_ks.iso {{ ostype }}/ks.cfg'
+
+    - name: Install VM with default machine type
+      include: "{{ ostype }}/builder_task.yaml"
+
+    - name: Move the img to user dir
+      shell: "\\cp -f {{ img_path }} {{ real_pwd }}"

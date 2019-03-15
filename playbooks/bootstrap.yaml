@@ -1,0 +1,159 @@
+- hosts: '{{ hosts_custom is defined | ternary(hosts_custom, "localhost") }}'
+  vars:
+      code_path: '{{ test_path is defined | ternary(test_path, "/var/lib/libvirt_gating/code") }}'
+      avocado_path: '{{ code_path }}/avocado'
+      avocado_vt_path: '{{ code_path }}/avocado-vt'
+      tp_libvirt_path: '{{ code_path }}/tp-libvirt'
+      autotest_path: '{{ code_path }}/autotest'
+      avocado_requirements: '{{ avocado_path }}/requirements.txt'
+      avocadoversion: '{{ avocado_version is defined | ternary(avocado_version, "69.0")}}'
+      avocadovtversion: '{{ avocado_vt_version is defined | ternary(avocado_vt_version, "HEAD") }}'
+      vttype: '{{ vt_type is defined | ternary(vt_type, "libvirt") }}'
+      qemuversion: '{{ qemu_version is defined | ternary(qemu_version, "qemu-kvm") }}'
+  tasks:
+      - name: Prepare required rpm packages for Python 2
+        yum:
+            name: '{{ item }}'
+            state: 'present'
+        with_items:
+            - 'python-devel'
+            - 'python-pip'
+            - 'libselinux-python'
+            - 'policycoreutils-python'
+            - 'attr'
+            - 'gmp-devel'
+            - 'xz-devel'
+            - 'make'
+            - 'wget'
+            - 'git'
+            - 'gcc'
+            - 'libffi-devel'
+            - 'openssl-devel'
+            - 'tcpdump'
+            - 'nc'
+            - 'libvirt'
+            - 'virt-install'
+            - '{{ qemuversion }}'
+        when:
+            - ansible_python['version']['major'] == 2
+
+      - name: Prepare required rpm packages for Python 3
+        dnf:
+            name: '{{ item }}'
+            state: 'present'
+        with_items:
+            - 'python3-devel'
+            - 'python3-policycoreutils'
+            - 'policycoreutils-python-utils'
+            - 'python3-pip'
+            - 'python3-libselinux'
+            - 'attr'
+            - 'gmp-devel'
+            - 'xz-devel'
+            - 'make'
+            - 'wget'
+            - 'git'
+            - 'gcc'
+            - 'libffi-devel'
+            - 'openssl-devel'
+            - 'tcpdump'
+            - 'nc'
+            - 'libvirt'
+            - 'virt-install'
+            - '{{ qemuversion }}'
+        when:
+            - ansible_python['version']['major'] == 3
+
+      - name: Download the git repo
+        git:
+          repo: "{{ item.repo }}"
+          dest: "{{ item.dest }}"
+          version: "{{ item.version }}"
+          force: true
+        with_items:
+            - repo: "https://github.com/avocado-framework/avocado.git"
+              dest: "{{ avocado_path }}"
+              version: '{{ avocadoversion }}'
+            - repo: "https://github.com/avocado-framework/avocado-vt.git"
+              dest: "{{ avocado_vt_path }}"
+              version: '{{ avocadovtversion }}'
+            - repo: "https://github.com/autotest/tp-libvirt.git"
+              dest: "{{ tp_libvirt_path }}"
+              version: 'HEAD'
+
+      - name: Clean up existing avocado installation
+        shell: 'rm -rf {{ item }}'
+        with_items:
+            - '/usr/lib/python*/site-packages/avocado*'
+            - '/usr/bin/avocado*'
+            - '/usr/share/avocado*'
+            - '/var/lib/avocado*'
+
+      - name: Install avocado requirements without libvirt-python
+        shell: "cat {{ avocado_requirements}} | sed '/^\\s*#/d' | cut -d\\; -f1 | grep -v libvirt-python | xargs -I REP {{ ansible_python['executable'] }} /usr/bin/pip install --retries 3 REP"
+        when: avocado_requirements is exists
+
+      - name: Install avocado-vt requirements
+        shell: "{{ ansible_python['executable'] }} /usr/bin/pip install -r requirements.txt --upgrade --retries 3"
+        args:
+            chdir: "{{ avocado_vt_path }}"
+
+      - name: Change tp-libvirt URL in avocado-vt
+        lineinfile:
+            dest: "{{ avocado_vt_path }}/test-providers.d/io-github-autotest-libvirt.ini"
+            regexp: "uri: .*"
+            line: "uri: {{ tp_libvirt_path }}"
+
+      - name: Remove unused test providers in avocado-vt
+        file:
+            path: "{{ avocado_vt_path }}/test-providers.d/io-github-{{ item }}.ini"
+            state: absent
+        with_items:
+            - 'autotest-qemu'
+            - 'spiceqa-spice'
+
+      - name: Install avocado-vt
+        shell: "{{ ansible_python['executable'] }} setup.py --quiet develop"
+        args:
+            chdir: "{{ avocado_vt_path }}"
+
+      - name: Symlink avocado and avocado-vt
+        file:
+            src: "{{ item.src }}"
+            dest: "{{ item.dest }}"
+            state: link
+        with_items:
+            - src: '{{ avocado_vt_path }}/virttest'
+              dest: '{{ avocado_path }}/virttest'
+            - src: '{{ avocado_vt_path }}/etc/avocado/conf.d/vt.conf'
+              dest: '{{ avocado_path }}/avocado/etc/avocado/conf.d/vt.conf'
+
+      - name: Install avocado
+        shell: "{{ ansible_python['executable'] }} setup.py --quiet develop"
+        args:
+            chdir: "{{ avocado_path }}"
+
+      - name: Bootstrap avocado-vt
+        shell: "avocado vt-bootstrap --yes-to-all --vt-type {{ vttype }} --vt-no-downloads"
+        args:
+            chdir: "{{ avocado_path }}"
+
+      - name: Bootstrap a latest avocado vt
+        include: tasks/avocado_test_provider.yaml
+
+      - name: Bootstrap avocado-vt again to make linked tp_libvirt take effect
+        shell: "avocado vt-bootstrap --yes-to-all --vt-type {{ vttype }}"
+        args:
+            chdir: "{{ avocado_path }}"
+
+      - name: Restart firewalld service
+        service: name=firewalld state=restarted
+        ignore_errors: yes
+
+      - name: Restart virtlogd.socket
+        service: name=virtlogd.socket state=restarted
+        ignore_errors: yes
+
+      - name: Restart libvirtd service
+        service: name=libvirtd state=restarted
+        ignore_errors: yes

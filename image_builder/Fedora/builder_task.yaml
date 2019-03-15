@@ -1,0 +1,28 @@
+- name: Download the iso file
+  get_url:
+    url: "https://download.fedoraproject.org/pub/fedora/linux/releases/29/Server/x86_64/iso/Fedora-Server-dvd-x86_64-29-1.2.iso"
+    dest: "/tmp/libvirt_gating_Fedora.iso"
+
+- name: Install VM with default machine type
+  shell: 'virt-install -n {{ guest_name}} -r 4096 --vcpus=4 --disk path={{ img_path }} --location="/tmp/libvirt_gating_Fedora.iso" --disk /tmp/libvirt_gating_ks.iso,device=cdrom -x "ks=cdrom:ks.cfg" --noreboot --wait -1 -x console=ttyS0 --debug --qemu-commandline="-enable-kvm"'
+
+- name: Undefine VM
+  shell: "virsh undefine {{ guest_name }} --nvram"
+
+- name: Cleanup image
+  shell: "virt-sysprep -a {{ img_path }} --run-command 'echo > /etc/machine-id; echo > /var/lib/dbus/machine-id'"
+
+- name: Compress image with virt-sparsify
+  shell: "virt-sparsify --check-tmpdir=ignore {{ img_path }} {{ img_path }}_back"
+
+- name: Compress image with qemu-img
+  shell: "qemu-img convert -O qcow2 -c {{ img_path }}_back {{ img_path }}"
+
+- name: Remove the tmp img
+  shell: "rm -rf {{ img_path }}_back"
+
+- name: Destroy tmp pool
+  shell: virsh pool-destroy tmp
+
+- name: Undefine tmp pool
+  shell: virsh pool-undefine tmp
