@@ -5,7 +5,7 @@ The project is for:
 
 1. Setup `Avocado-vt <https://github.com/avocado-framework/avocado-vt>`_ and `tp-libvirt <https://github.com/autotest/tp-libvirt>`_ ready env for libvirt testing.
 
-2. Provide a runner `vtr` for running avocado-vt test cases, a --gating option is supported to run a group of gating cases.
+2. Provide a runner ``vtr`` for running avocado-vt test cases, a --gating option is supported to run a group of gating cases.
 
 The project include shell, python scripts and Ansible playbooks.
 
@@ -35,9 +35,9 @@ Runner command
 
 vtr -- avocado-vt runner
 
-The `vtr` command is avocado command wrapper with support run avocado-vt
+The ``vtr`` command is avocado command wrapper with support run avocado-vt
 tp-libvirt test cases.
-As tp-libvirt test cases require privilege user, following cmmands need run
+As tp-libvirt test cases require privilege user, following commands need run
 under root or sudo user.
 
 ::
@@ -67,10 +67,11 @@ List test cases
 Rerun previous tests
 ::
 
-    # vtr rerun --xunit $previous_run_result.xml
+    # vtr rerun --ignore-pass --xunit $previous_run_result.xml
 
 The rerun command currently only support rerun with given xunit file from
-previous run.
+previous run. If not specify, it will retrieve latest xunit file under
+current dir. With --ignore-pass option, only failed cases will be rerun. 
 
 Test log and report
 ===================
@@ -79,7 +80,6 @@ The runner have simple console output of the test run progress and result
 status of each test case been run.
 
 The runner generates xunit file for report.
-
 
 Image Builder
 =============
