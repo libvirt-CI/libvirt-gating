@@ -33,6 +33,7 @@
             - 'nc'
             - 'libvirt'
             - 'virt-install'
+            - 'firewalld'
             - '{{ qemuversion }}'
         when:
             - ansible_python['version']['major'] == 2
@@ -60,6 +61,7 @@
             - 'nc'
             - 'libvirt'
             - 'virt-install'
+            - 'firewalld'
             - '{{ qemuversion }}'
         when:
             - ansible_python['version']['major'] == 3
