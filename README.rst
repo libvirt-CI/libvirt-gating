@@ -12,7 +12,7 @@ The project include shell, python scripts and Ansible playbooks.
 Requirements
 ============
 
-Packages: git, ansible, python-pip, libvirt, qemu-kvm, virt-manager-common, firewalld
+Packages: git, ansible, libvirt, qemu-kvm, virt-manager-common, firewalld
 
 If on CentOS, make sure you have EPEL repo configured
 ::
