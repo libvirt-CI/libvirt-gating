@@ -1,34 +1,86 @@
-dac_nfs_disk.positive_test.nfs_img_qemu.qemu_user.dynamic_ownership_off.no_root_squash
-guest_numa.possitive_test.no_hugepage.mem_backend.topology.no_numatune_memnode.no_numatune_mem
+# create
+virsh.create.none
+
+# start
+virsh.start.status_error_no.normal_start
+
+# shut down
+virsh.shutdown.normal_test.name_option.agent_mode.agent_test
+virsh.destroy.normal_test.non_acl.graceful
+
+# suspend
+virsh.suspend.normal_test.non_acl.name_option
+
+# reboot
+virsh.reboot.normal_test.id_option.no_mode
+
+# resume
+virsh.resume.normal_test.vm_paused.valid_domname
+
+# save & restore
+virsh.restore.expected_option.non_acl.no_option
+virsh.save.normal_test.normal_option.no_option.no_progress
+
+# undefine
+virsh.undefine.normal_test.vm_running.no_option
+
+# reset
+virsh.reset.positive_test.non_acl.name_options
+
+# cpu hotplug
+libvirt_vcpu_plug_unplug.positive_test.vcpu_set.live.vm_operate.save
+
+# cpu coldplug
 libvirt_vcpu_plug_unplug.positive_test.vcpu_set.config.vm_operate.managedsave
+
+# cpu feature
+virsh.cpu_baseline.positive_test.default_test
+virsh.cpu_models.positive_test.local_host.auto_get_arch
+virsh.maxvcpus.connect_to_local.no_option
+virsh.vcpucount.positive_tests.running_test.live_active_option
+virsh.vcpupin.online.positive_test.cpu_list.cpu_list_comma
+virsh.vcpupin.online.positive_test.live
+virsh.emulatorpin.positive_testing.get_emulatorpin_parameter.running_guest.emulatorpin_options.current
+virsh.setvcpus.normal_test.guest_off.option_config
+virsh.schedinfo_qemu_posix.normal_test.set_cpu_param.set_cpu_shares.value_exceed.set_by_cmd.config.valid_domid
+
+# numa
+guest_numa.possitive_test.no_hugepage.mem_backend.topology.no_numatune_memnode.no_numatune_mem
+
+# memory hotplug
+libvirt_mem.positive_test.with_source
+
+# memory feature
+virsh.memtune.positive_test.step_increment
+virsh.setmaxmem.normal_test.config.running.same_mem.domname.dom_arg_size_arg
+virsh.setmem.valid_options.running.half_mem.domid.dom_arg_size_arg.cmd_flag_current.manipulate_action.none.no_action
+
+# block jobs
+virsh.domblkinfo.normal_test.id_option
+virsh.domblkstat.normal_test.human_option
+
+# svirt
 svirt_attach_disk.positive_test.default_vol.domain_seclabel.disk_label_svirt_image_s0.sec_relabel_yes.sec_type_dynamic
+dac_nfs_disk.positive_test.nfs_img_qemu.qemu_user.dynamic_ownership_off.no_root_squash
+
+# snapshot
+virsh.snapshot.live.no_halt
+
+# storage
+virsh.vol_create_from.positive_test.dest_vol_format.v_qcow2.src_vol_format.v_qcow2.dest_pool_type.dir.src_pool_type.dir
+virsh.vol_create.create.positive_test.disk_pool.vol_format_linux.pool_format_none.non_encryption
+virsh.volume.dir_pool.vol_encrypt_none.vol_format_qcow2.vol_allocation.normal_size
+virsh.pool.positive_test.pool_type_dir
+
+# attach & detach devices
 virsh.attach_detach_disk.attach_disk.normal_test.attach_disk_image_format.qcow2_format
 virsh.attach_detach_disk.detach_disk.normal_test.attach_disk_image_format.qcow2_format
 virsh.attach_detach_interface.normal_test.vm_running.default_network.domid
-virsh.blkdeviotune.positive_testing.set_blkdevio_parameter.running_guest.change_read_bytes_sec.options.config.inside_boundary
-virsh.cpu_baseline.positive_test.default_test
-virsh.cpu_models.positive_test.local_host.auto_get_arch
-virsh.create.none
-virsh.destroy.normal_test.non_acl.graceful
-virsh.domblkinfo.normal_test.id_option
-virsh.domblkstat.normal_test.human_option
-virsh.domdisplay.have_passwd.no_options.positive_readonly.vnc_t.domain_uuid
+virsh.update_device.normal_test.config_option.scsi_option
+
+# virtual network
 virsh.domiflist.with_valid_option.domid
 virsh.domifstat.normal_test.id_option
-virsh.domiftune.positive_testing.get_domif_parameter.running_guest.options.current
-virsh.dominfo.normal_test.id_option
-virsh.domjobabort.normal_test.dump_option.live_dump.running_option.id_option
-virsh.dommemstat.normal_test.id_option
-virsh.domstate.normal_test.name_option
-virsh.domstats.normal_test.domain_state.active.option.cpu_total.default_print.not_enforce.specific_domain
-virsh.dump.positive_test.non_acl.bzip2_format_dump
-virsh.dumpxml.normal_test.non_acl.vm_running.with_default.domid
-virsh.emulatorpin.positive_testing.get_emulatorpin_parameter.running_guest.emulatorpin_options.current
-virsh.freecell.libvirtoff.expected_options.expected_args_0
-virsh.managedsave.functional_test.saved_file
-virsh.maxvcpus.connect_to_local.no_option
-virsh.memtune.positive_test.step_increment
-virsh.metadata.positive_test.current_option
 virsh.net_autostart.normal_test.set_autostart.netname
 virsh.net_create.normal_test.file_as_argument.new_network
 virsh.net_destroy.normal_test.non_acl.default_option.persistent
@@ -37,27 +89,24 @@ virsh.net_edit.net_define.modify.changeable
 virsh.net_info.normal_test.name_option
 virsh.net_list.normal_test.non_acl.all_opt
 virsh.net_start.normal_test.non_acl.valid_netname
-virsh.pool.positive_test.pool_type_dir
-virsh.reboot.normal_test.id_option.no_mode
-virsh.reset.positive_test.non_acl.name_options
-virsh.restore.expected_option.non_acl.no_option
-virsh.resume.normal_test.vm_paused.valid_domname
-virsh.save.normal_test.normal_option.no_option.no_progress
-virsh.schedinfo_qemu_posix.normal_test.set_cpu_param.set_cpu_shares.value_exceed.set_by_cmd.config.valid_domid
+
+# managed save
+virsh.managedsave.functional_test.saved_file
+
+# secret
 virsh.secret_define_undefine.normal_test.non_acl.ephemeral_yes
-virsh.setmaxmem.normal_test.config.running.same_mem.domname.dom_arg_size_arg
-virsh.setmem.valid_options.running.half_mem.domid.dom_arg_size_arg.cmd_flag_current.manipulate_action.none.no_action
-virsh.setvcpus.normal_test.guest_off.option_config
-virsh.shutdown.normal_test.name_option.agent_mode.agent_test
-virsh.snapshot.live.no_halt
-virsh.start.status_error_no.normal_start
-virsh.suspend.normal_test.non_acl.name_option
-virsh.undefine.normal_test.vm_running.no_option
-virsh.update_device.normal_test.config_option.scsi_option
-virsh.vcpucount.positive_tests.running_test.live_active_option
-virsh.vcpupin.online.positive_test.cpu_list.cpu_list_comma
-virsh.vcpupin.online.positive_test.live
+
+# other commands
+virsh.domiftune.positive_testing.get_domif_parameter.running_guest.options.current
+virsh.blkdeviotune.positive_testing.set_blkdevio_parameter.running_guest.change_read_bytes_sec.options.config.inside_boundary
+virsh.domdisplay.have_passwd.no_options.positive_readonly.vnc_t.domain_uuid
+virsh.dominfo.normal_test.id_option
+virsh.domjobabort.normal_test.dump_option.live_dump.running_option.id_option
+virsh.dommemstat.normal_test.id_option
+virsh.domstate.normal_test.name_option
+virsh.domstats.normal_test.domain_state.active.option.cpu_total.default_print.not_enforce.specific_domain
+virsh.dump.positive_test.non_acl.bzip2_format_dump
+virsh.dumpxml.normal_test.non_acl.vm_running.with_default.domid
+virsh.freecell.libvirtoff.expected_options.expected_args_0
+virsh.metadata.positive_test.current_option
 virsh.vncdisplay.normal_test.name_option
-virsh.vol_create_from.positive_test.dest_vol_format.v_qcow2.src_vol_format.v_qcow2.dest_pool_type.dir.src_pool_type.dir
-virsh.vol_create.create.positive_test.disk_pool.vol_format_linux.pool_format_none.non_encryption
-virsh.volume.dir_pool.vol_encrypt_none.vol_format_qcow2.vol_allocation.normal_size

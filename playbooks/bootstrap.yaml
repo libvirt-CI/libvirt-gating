@@ -1,6 +1,6 @@
 - hosts: '{{ hosts_custom is defined | ternary(hosts_custom, "localhost") }}'
   vars:
-      code_path: '{{ test_path is defined | ternary(test_path, "/var/lib/libvirt_gating/code") }}'
+      code_path: '{{ test_path is defined | ternary(test_path, "/var/lib/libvirt-gating/code") }}'
       avocado_path: '{{ code_path }}/avocado'
       avocado_vt_path: '{{ code_path }}/avocado-vt'
       tp_libvirt_path: '{{ code_path }}/tp-libvirt'

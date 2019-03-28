@@ -377,7 +377,16 @@ def _list(params):
     dir_path = os.path.split(bin_dir_path)[0]
     if params['gating'] or not params.get('cases'):
         with open('%s/cases/gating.only' % dir_path, 'r') as case_file:
-            cases = case_file.read().splitlines()
+            tmp = case_file.read().splitlines()
+            cases = []
+            for x in tmp:
+                if not x.strip():
+                    # Blank line
+                    continue
+                if x.strip().startswith('#'):
+                    # Comment line
+                    continue
+                cases.append(x)
     else:
         cases = params['cases']
     legal_cases = list_test(cases, params['machine_type'])
