@@ -106,5 +106,4 @@ virsh.domstate.normal_test.name_option
 virsh.domstats.normal_test.domain_state.active.option.cpu_total.default_print.not_enforce.specific_domain
 virsh.dump.positive_test.non_acl.bzip2_format_dump
 virsh.freecell.libvirtoff.expected_options.expected_args_0
-virsh.metadata.positive_test.current_option
 virsh.vncdisplay.normal_test.name_option
