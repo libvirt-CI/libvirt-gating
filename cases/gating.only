@@ -81,7 +81,6 @@ virsh.update_device.normal_test.config_option.scsi_option
 # virtual network
 virsh.domiflist.with_valid_option.domid
 virsh.domifstat.normal_test.id_option
-virsh.net_autostart.normal_test.set_autostart.netname
 virsh.net_create.normal_test.file_as_argument.new_network
 virsh.net_destroy.normal_test.non_acl.default_option.persistent
 virsh.net_edit.net_define.modify.changeable
