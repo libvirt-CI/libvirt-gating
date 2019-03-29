@@ -56,7 +56,6 @@ virsh.setmaxmem.normal_test.config.running.same_mem.domname.dom_arg_size_arg
 virsh.setmem.valid_options.running.half_mem.domid.dom_arg_size_arg.cmd_flag_current.manipulate_action.none.no_action
 
 # block jobs
-virsh.domblkinfo.normal_test.id_option
 virsh.domblkstat.normal_test.human_option
 
 # svirt
@@ -83,7 +82,6 @@ virsh.domiflist.with_valid_option.domid
 virsh.domifstat.normal_test.id_option
 virsh.net_create.normal_test.file_as_argument.new_network
 virsh.net_destroy.normal_test.non_acl.default_option.persistent
-virsh.net_info.normal_test.name_option
 virsh.net_list.normal_test.non_acl.all_opt
 virsh.net_start.normal_test.non_acl.valid_netname
 
@@ -96,7 +94,6 @@ virsh.secret_define_undefine.normal_test.non_acl.ephemeral_yes
 # other commands
 virsh.domiftune.positive_testing.get_domif_parameter.running_guest.options.current
 virsh.blkdeviotune.positive_testing.set_blkdevio_parameter.running_guest.change_read_bytes_sec.options.config.inside_boundary
-virsh.dominfo.normal_test.id_option
 virsh.domjobabort.normal_test.dump_option.live_dump.running_option.id_option
 virsh.dommemstat.normal_test.id_option
 virsh.domstate.normal_test.name_option
