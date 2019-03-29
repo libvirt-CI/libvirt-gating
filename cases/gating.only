@@ -97,7 +97,6 @@ virsh.secret_define_undefine.normal_test.non_acl.ephemeral_yes
 # other commands
 virsh.domiftune.positive_testing.get_domif_parameter.running_guest.options.current
 virsh.blkdeviotune.positive_testing.set_blkdevio_parameter.running_guest.change_read_bytes_sec.options.config.inside_boundary
-virsh.domdisplay.have_passwd.no_options.positive_readonly.vnc_t.domain_uuid
 virsh.dominfo.normal_test.id_option
 virsh.domjobabort.normal_test.dump_option.live_dump.running_option.id_option
 virsh.dommemstat.normal_test.id_option
@@ -105,4 +104,3 @@ virsh.domstate.normal_test.name_option
 virsh.domstats.normal_test.domain_state.active.option.cpu_total.default_print.not_enforce.specific_domain
 virsh.dump.positive_test.non_acl.bzip2_format_dump
 virsh.freecell.libvirtoff.expected_options.expected_args_0
-virsh.vncdisplay.normal_test.name_option
