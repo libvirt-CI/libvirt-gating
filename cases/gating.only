@@ -84,7 +84,6 @@ virsh.domifstat.normal_test.id_option
 virsh.net_autostart.normal_test.set_autostart.netname
 virsh.net_create.normal_test.file_as_argument.new_network
 virsh.net_destroy.normal_test.non_acl.default_option.persistent
-virsh.net_dumpxml.normal_test.non_acl.name_option
 virsh.net_edit.net_define.modify.changeable
 virsh.net_info.normal_test.name_option
 virsh.net_list.normal_test.non_acl.all_opt
@@ -106,7 +105,6 @@ virsh.dommemstat.normal_test.id_option
 virsh.domstate.normal_test.name_option
 virsh.domstats.normal_test.domain_state.active.option.cpu_total.default_print.not_enforce.specific_domain
 virsh.dump.positive_test.non_acl.bzip2_format_dump
-virsh.dumpxml.normal_test.non_acl.vm_running.with_default.domid
 virsh.freecell.libvirtoff.expected_options.expected_args_0
 virsh.metadata.positive_test.current_option
 virsh.vncdisplay.normal_test.name_option
