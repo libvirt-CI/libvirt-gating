@@ -88,9 +88,6 @@ virsh.net_start.normal_test.non_acl.valid_netname
 # managed save
 virsh.managedsave.functional_test.saved_file
 
-# secret
-virsh.secret_define_undefine.normal_test.non_acl.ephemeral_yes
-
 # other commands
 virsh.dommemstat.normal_test.id_option
 virsh.domstate.normal_test.name_option
