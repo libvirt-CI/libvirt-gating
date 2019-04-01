@@ -92,7 +92,6 @@ virsh.managedsave.functional_test.saved_file
 virsh.secret_define_undefine.normal_test.non_acl.ephemeral_yes
 
 # other commands
-virsh.domjobabort.normal_test.dump_option.live_dump.running_option.id_option
 virsh.dommemstat.normal_test.id_option
 virsh.domstate.normal_test.name_option
 virsh.domstats.normal_test.domain_state.active.option.cpu_total.default_print.not_enforce.specific_domain
