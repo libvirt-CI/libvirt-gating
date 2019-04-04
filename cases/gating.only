@@ -21,9 +21,6 @@ virsh.resume.normal_test.vm_paused.valid_domname
 virsh.restore.expected_option.non_acl.no_option
 virsh.save.normal_test.normal_option.no_option.no_progress
 
-# undefine
-virsh.undefine.normal_test.vm_running.no_option
-
 # reset
 virsh.reset.positive_test.non_acl.name_options
 
