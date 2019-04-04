@@ -28,7 +28,6 @@ libvirt_vcpu_plug_unplug.positive_test.vcpu_set.live.vm_operate.save
 libvirt_vcpu_plug_unplug.positive_test.vcpu_set.config.vm_operate.managedsave
 
 # cpu feature
-virsh.vcpucount.positive_tests.running_test.live_active_option
 virsh.vcpupin.online.positive_test.cpu_list.cpu_list_comma
 virsh.vcpupin.online.positive_test.live
 virsh.emulatorpin.positive_testing.get_emulatorpin_parameter.running_guest.emulatorpin_options.current
