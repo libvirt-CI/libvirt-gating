@@ -28,9 +28,6 @@ libvirt_vcpu_plug_unplug.positive_test.vcpu_set.live.vm_operate.save
 libvirt_vcpu_plug_unplug.positive_test.vcpu_set.config.vm_operate.managedsave
 
 # cpu feature
-virsh.cpu_baseline.positive_test.default_test
-virsh.cpu_models.positive_test.local_host.auto_get_arch
-virsh.maxvcpus.connect_to_local.no_option
 virsh.vcpucount.positive_tests.running_test.live_active_option
 virsh.vcpupin.online.positive_test.cpu_list.cpu_list_comma
 virsh.vcpupin.online.positive_test.live
@@ -87,4 +84,3 @@ virsh.dommemstat.normal_test.id_option
 virsh.domstate.normal_test.name_option
 virsh.domstats.normal_test.domain_state.active.option.cpu_total.default_print.not_enforce.specific_domain
 virsh.dump.positive_test.non_acl.bzip2_format_dump
-virsh.freecell.libvirtoff.expected_options.expected_args_0
