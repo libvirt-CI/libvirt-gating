@@ -32,7 +32,6 @@ virsh.vcpupin.online.positive_test.cpu_list.cpu_list_comma
 virsh.vcpupin.online.positive_test.live
 virsh.emulatorpin.positive_testing.get_emulatorpin_parameter.running_guest.emulatorpin_options.current
 virsh.setvcpus.normal_test.guest_off.option_config
-virsh.schedinfo_qemu_posix.normal_test.set_cpu_param.set_cpu_shares.value_exceed.set_by_cmd.config.valid_domid
 
 # numa
 guest_numa.possitive_test.no_hugepage.mem_backend.topology.no_numatune_memnode.no_numatune_mem
