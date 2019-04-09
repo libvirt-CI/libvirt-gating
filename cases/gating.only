@@ -39,8 +39,7 @@ guest_numa.possitive_test.no_hugepage.mem_backend.topology.no_numatune_memnode.n
 # memory hotplug
 libvirt_mem.positive_test.with_source
 
-# memory feature
-virsh.memtune.positive_test.step_increment
+# memory baloon
 virsh.setmem.valid_options.running.half_mem.domid.dom_arg_size_arg.cmd_flag_current.manipulate_action.none.no_action
 
 # block jobs
