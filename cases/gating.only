@@ -41,7 +41,6 @@ libvirt_mem.positive_test.with_source
 
 # memory feature
 virsh.memtune.positive_test.step_increment
-virsh.setmaxmem.normal_test.config.running.same_mem.domname.dom_arg_size_arg
 virsh.setmem.valid_options.running.half_mem.domid.dom_arg_size_arg.cmd_flag_current.manipulate_action.none.no_action
 
 # block jobs
