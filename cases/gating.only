@@ -59,7 +59,6 @@ virsh.update_device.normal_test.config_option.scsi_option
 virsh.domiflist.with_valid_option.domid
 virsh.net_create.normal_test.file_as_argument.new_network
 virsh.net_destroy.normal_test.non_acl.default_option.persistent
-virsh.net_list.normal_test.non_acl.all_opt
 virsh.net_start.normal_test.non_acl.valid_netname
 
 # managed save
