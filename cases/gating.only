@@ -42,10 +42,6 @@ libvirt_mem.positive_test.with_source
 # memory baloon
 virsh.setmem.valid_options.running.half_mem.domid.dom_arg_size_arg.cmd_flag_current.manipulate_action.none.no_action
 
-# svirt
-svirt_attach_disk.positive_test.default_vol.domain_seclabel.disk_label_svirt_image_s0.sec_relabel_yes.sec_type_dynamic
-dac_nfs_disk.positive_test.nfs_img_qemu.qemu_user.dynamic_ownership_off.no_root_squash
-
 # snapshot
 virsh.snapshot.live.no_halt
 
