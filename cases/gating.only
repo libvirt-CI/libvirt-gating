@@ -42,9 +42,6 @@ libvirt_mem.positive_test.with_source
 # memory baloon
 virsh.setmem.valid_options.running.half_mem.domid.dom_arg_size_arg.cmd_flag_current.manipulate_action.none.no_action
 
-# block jobs
-virsh.domblkstat.normal_test.human_option
-
 # svirt
 svirt_attach_disk.positive_test.default_vol.domain_seclabel.disk_label_svirt_image_s0.sec_relabel_yes.sec_type_dynamic
 dac_nfs_disk.positive_test.nfs_img_qemu.qemu_user.dynamic_ownership_off.no_root_squash
@@ -53,8 +50,6 @@ dac_nfs_disk.positive_test.nfs_img_qemu.qemu_user.dynamic_ownership_off.no_root_
 virsh.snapshot.live.no_halt
 
 # storage
-virsh.vol_create_from.positive_test.dest_vol_format.v_qcow2.src_vol_format.v_qcow2.dest_pool_type.dir.src_pool_type.dir
-virsh.vol_create.create.positive_test.disk_pool.vol_format_linux.pool_format_none.non_encryption
 virsh.volume.dir_pool.vol_encrypt_none.vol_format_qcow2.vol_allocation.normal_size
 virsh.pool.positive_test.pool_type_dir
 
@@ -66,7 +61,6 @@ virsh.update_device.normal_test.config_option.scsi_option
 
 # virtual network
 virsh.domiflist.with_valid_option.domid
-virsh.domifstat.normal_test.id_option
 virsh.net_create.normal_test.file_as_argument.new_network
 virsh.net_destroy.normal_test.non_acl.default_option.persistent
 virsh.net_list.normal_test.non_acl.all_opt
@@ -76,7 +70,4 @@ virsh.net_start.normal_test.non_acl.valid_netname
 virsh.managedsave.functional_test.saved_file
 
 # other commands
-virsh.dommemstat.normal_test.id_option
-virsh.domstate.normal_test.name_option
-virsh.domstats.normal_test.domain_state.active.option.cpu_total.default_print.not_enforce.specific_domain
 virsh.dump.positive_test.non_acl.bzip2_format_dump
