@@ -1,15 +1,9 @@
 # create
 virsh.create.none
 
-# start
-virsh.start.status_error_no.normal_start
-
 # shut down
 virsh.shutdown.normal_test.name_option.agent_mode.agent_test
 virsh.destroy.normal_test.non_acl.graceful
-
-# suspend
-virsh.suspend.normal_test.non_acl.name_option
 
 # reboot
 virsh.reboot.normal_test.id_option.no_mode
@@ -17,15 +11,8 @@ virsh.reboot.normal_test.id_option.no_mode
 # resume
 virsh.resume.normal_test.vm_paused.valid_domname
 
-# save & restore
-virsh.restore.expected_option.non_acl.no_option
-virsh.save.normal_test.normal_option.no_option.no_progress
-
 # cpu hotplug
-libvirt_vcpu_plug_unplug.positive_test.vcpu_set.live.vm_operate.save
-
-# cpu coldplug
-libvirt_vcpu_plug_unplug.positive_test.vcpu_set.config.vm_operate.managedsave
+vcpu_hotpluggable.positive_test.plug.live
 
 # cpu feature
 virsh.vcpupin.online.positive_test.cpu_list.cpu_list_comma
@@ -50,10 +37,8 @@ virsh.volume.dir_pool.vol_encrypt_none.vol_format_qcow2.vol_allocation.normal_si
 virsh.pool.positive_test.pool_type_dir
 
 # attach & detach devices
-virsh.attach_detach_disk.attach_disk.normal_test.attach_disk_image_format.qcow2_format
 virsh.attach_detach_disk.detach_disk.normal_test.attach_disk_image_format.qcow2_format
 virsh.attach_detach_interface.normal_test.vm_running.default_network.domid
-virsh.update_device.normal_test.config_option.scsi_option
 
 # virtual network
 virsh.domiflist.with_valid_option.domid
@@ -62,7 +47,7 @@ virsh.net_destroy.normal_test.non_acl.default_option.persistent
 virsh.net_start.normal_test.non_acl.valid_netname
 
 # managed save
-virsh.managedsave.functional_test.saved_file
+virsh.managedsave.status_error_no.id_option.no_opt.no_progress
 
 # other commands
 virsh.dump.positive_test.non_acl.bzip2_format_dump
